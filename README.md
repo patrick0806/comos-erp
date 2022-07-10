@@ -1,8 +1,8 @@
 # Cosmos ERP
 
-The api of a virtual store erp, integrated with the main sales platforms.
-
 ## Project status: In Development
+
+The api of a virtual store erp, integrated with the main sales platforms.
 
 # API Development Process
 
@@ -64,18 +64,6 @@ DATABASE_PORT=5432
 DATABASE_NAME=cosmo
 DATABASE_USER=cosmo
 DATABASE_PASSWORD=123
-
-# upload variables
-UPLOAD_DESTINATION=/tmp/uploaded-files
-
-# aws s3 variables
-AWS_S3_KEY=AKIAYIYZLUAN3XZHV4HP
-AWS_S3_SECRET=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
-AWS_S3_BUCKET=arquivos-dev.fridakahlo.com.br
-
-# jwts
-JWT_SECRET=12a31b23c44d41e23
-JWT_TIME_SPAN=1d
 ```
 
 Then, you can run as follows:
@@ -104,3 +92,5 @@ I still don't know how long this project will take to finish but I want to add s
 - Using S3(AWS)
 - CI/CD
 - Logs and monitoring
+
+You can see what i'm doing right now on [trello]().
