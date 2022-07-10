@@ -91,6 +91,4 @@ I still don't know how long this project will take to finish but I want to add s
 - Tests (unitary/integration)
 - Using S3(AWS)
 - CI/CD
-- Logs and monitoring
-
-You can see what i'm doing right now on [trello]().
+- Logs and monitorin
