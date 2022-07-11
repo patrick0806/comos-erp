@@ -29,6 +29,6 @@ export class UsersService {
 
   private createPasswordHash(password: string): Promise<string> {
     const saltRounds = 10;
-    return bcrypt.hash(process.env.BCRYPT_PASSWORD, saltRounds);
+    return bcrypt.hash(password, saltRounds);
   }
 }
