@@ -15,7 +15,7 @@ export class UsersService {
 
   async createUser(user: UserDTO) {
     const alreadyExistsUser = await this.findUser(user.email);
-    console.log(alreadyExistsUser);
+
     if (alreadyExistsUser) {
       throw new HttpException(
         'There is already a registered user with this email',
