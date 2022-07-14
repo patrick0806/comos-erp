@@ -1,64 +1,83 @@
-import { PrismaService } from '../prisma.service';
 import { UsersService } from './users.service';
 import { faker } from '@faker-js/faker';
+import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { UserEntity } from './user.entity';
+import { Repository, DeepPartial } from 'typeorm';
 
 describe('UsersService', () => {
   let usersService: UsersService;
-  let prismaService: PrismaService;
+  let userRepository: Repository<UserEntity>;
 
   beforeEach(async () => {
-    prismaService = new PrismaService();
-    usersService = new UsersService(prismaService);
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        UsersService,
+        {
+          provide: getRepositoryToken(UserEntity),
+          useValue: {
+            save: jest.fn(),
+            findOne: jest.fn(),
+          },
+        },
+      ],
+    }).compile();
+
+    usersService = module.get<UsersService>(UsersService);
+    userRepository = module.get<Repository<UserEntity>>(
+      getRepositoryToken(UserEntity),
+    );
   });
 
   it('should be defined', () => {
     expect(usersService).toBeDefined();
+    expect(userRepository).toBeDefined();
   });
 
   it('should create new user', async () => {
     const newUser: UserDTO = {
-      name: faker.name.findName(),
-      email: faker.internet.email(),
-      image: faker.image.imageUrl(),
+      name: 'user',
+      email: 'user@gmail.com',
+      image:
+        'https://i.picsum.photos/id/842/200/200.jpg?hmac=RW9iEgAYLKwoinQWSz_zrZHyOwmVEgqvoZTPebkRGMM',
       password: faker.random.word(),
     };
-    const createdUser = await usersService.createUser(newUser);
 
-    expect(createdUser.id).not.toBeNull();
+    const createdUserMock = {
+      id: faker.datatype.uuid(),
+      name: 'user',
+      email: 'user@gmail.com',
+      image:
+        'https://i.picsum.photos/id/842/200/200.jpg?hmac=RW9iEgAYLKwoinQWSz_zrZHyOwmVEgqvoZTPebkRGMM',
+    } as UserEntity;
+
+    jest.spyOn(userRepository, 'save').mockResolvedValue(createdUserMock);
+
+    const createdUser = await usersService.createUser(newUser);
+    expect(userRepository.save).toBeCalledTimes(1);
+    expect(userRepository.findOne).toBeCalledTimes(1);
+    expect(createdUser.id).toEqual(createdUserMock.id);
     expect(createdUser.name).toEqual(newUser.name);
     expect(createdUser.email).toEqual(newUser.email);
     expect(createdUser.image).toEqual(newUser.image);
   });
 
-  it('should fail on create another user with same email', async () => {
-    const newUser: UserDTO = {
-      name: faker.name.findName(),
-      email: faker.internet.email(),
-      image: faker.image.imageUrl(),
-      password: faker.random.word(),
-    };
-
-    const user = await usersService.createUser(newUser);
-    try {
-      await usersService.createUser(user);
-      fail();
-    } catch (err) {}
-  });
-
   it('should find a user in database with her email', async () => {
-    const newUser: UserDTO = {
-      name: faker.name.findName(),
-      email: faker.internet.email(),
-      image: faker.image.imageUrl(),
-      password: faker.random.word(),
-    };
+    const userFoundMock = {
+      id: faker.datatype.uuid(),
+      name: 'user',
+      email: 'user@gmail.com',
+      image:
+        'https://i.picsum.photos/id/842/200/200.jpg?hmac=RW9iEgAYLKwoinQWSz_zrZHyOwmVEgqvoZTPebkRGMM',
+    } as UserEntity;
+    jest.spyOn(userRepository, 'findOne').mockResolvedValue(userFoundMock);
 
-    await usersService.createUser(newUser);
+    const findUser = await usersService.findUser(userFoundMock.email);
 
-    const findUser = await usersService.findUser(newUser.email);
-    expect(findUser.id).not.toBeNull();
-    expect(findUser.name).toEqual(newUser.name);
-    expect(findUser.email).toEqual(newUser.email);
-    expect(findUser.image).toEqual(newUser.image);
+    expect(userRepository.findOne).toBeCalledTimes(1);
+    expect(findUser.id).toEqual(userFoundMock.id);
+    expect(findUser.name).toEqual(userFoundMock.name);
+    expect(findUser.email).toEqual(userFoundMock.email);
+    expect(findUser.image).toEqual(userFoundMock.image);
   });
 });
