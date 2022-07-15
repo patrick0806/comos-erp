@@ -7,7 +7,6 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 describe('UserController', () => {
   let userController: UsersController;
-  let usersService: UsersService;
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
