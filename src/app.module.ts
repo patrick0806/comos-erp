@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
+import { MediaLibraryModule } from './media-library/media-library.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { UsersModule } from './users/users.module';
       entities: [__dirname + '/**/*.entity{.js,.ts}'],
     }),
     UsersModule,
+    MediaLibraryModule,
   ],
   controllers: [],
   providers: [],
