@@ -51,27 +51,7 @@ docker rm digituz-dashboard-postgres
 
 First, you need create a `.env` file at the project root:
 
-```bash
-#################################
-# these are development variables
-#################################
-
-NODE_ENV=development
-
-# database variables
-DATABASE_HOST=localhost
-DATABASE_PORT=5432
-DATABASE_NAME=cosmo
-DATABASE_USER=cosmo
-DATABASE_PASSWORD=123
-
-# S3
-
-AWS_S3_ACCESS_KEY=AKIAXHVH4KDGWC2QDMDO
-AWS_S3_SECRET_KEY=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
-AWS_REGION=sa-east-1
-AWS_S3_BUCKET=cosmos-erp-dev
-```
+you can find de env values in this doc https://docs.google.com/document/d/1Nb6XZR1_HXKujTfIMztVG-qGk1qsKxTZ6-aVKL8bKn0/edit?usp=sharing
 
 Then, you can run as follows:
 
