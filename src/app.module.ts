@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { MediaLibraryModule } from './media-library/media-library.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { MediaLibraryModule } from './media-library/media-library.module';
     }),
     UsersModule,
     MediaLibraryModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
