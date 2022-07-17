@@ -3,7 +3,8 @@ import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { UserEntity } from './user.entity';
-import { Repository, DeepPartial } from 'typeorm';
+import { Repository } from 'typeorm';
+import { UserDTO } from './user.dto';
 
 describe('UsersService', () => {
   let usersService: UsersService;

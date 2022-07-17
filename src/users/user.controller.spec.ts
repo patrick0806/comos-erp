@@ -4,6 +4,7 @@ import { UsersService } from './users.service';
 import { faker } from '@faker-js/faker';
 import { UserEntity } from './user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { UserDTO } from './user.dto';
 
 describe('UserController', () => {
   let userController: UsersController;
