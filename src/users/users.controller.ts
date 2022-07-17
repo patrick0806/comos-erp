@@ -6,7 +6,6 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
   @Get(':email')
   async findUser(@Param('email') email: string) {
-    console.log(email);
     return this.usersService.findUser(email);
   }
 
