@@ -1,9 +1,11 @@
+import { ImageEntity } from 'src/media-library/image.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -27,10 +29,8 @@ export class UserEntity {
   })
   password: string;
 
-  @Column({
-    nullable: true,
-  })
-  image?: string;
+  @JoinColumn({ name: 'image_id' })
+  image?: ImageEntity;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: string;
