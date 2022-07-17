@@ -17,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
       password: process.env.DATABASE_PASSWORD,
       synchronize: process.env.NODE_ENV === 'development' ? true : false,
       entities: [__dirname + '/**/*.entity{.js,.ts}'],
+      logging: true,
     }),
     UsersModule,
     MediaLibraryModule,

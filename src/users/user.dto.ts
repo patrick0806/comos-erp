@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ImageEntity } from 'src/media-library/image.entity';
+import { ImageEntity } from '../media-library/image.entity';
 
 export class UserDTO {
   @ApiProperty({

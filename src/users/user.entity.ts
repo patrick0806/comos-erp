@@ -1,4 +1,4 @@
-import { ImageEntity } from 'src/media-library/image.entity';
+import { ImageEntity } from '../media-library/image.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
