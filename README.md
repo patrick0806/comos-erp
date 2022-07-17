@@ -64,7 +64,6 @@ DATABASE_PORT=5432
 DATABASE_NAME=cosmo
 DATABASE_USER=cosmo
 DATABASE_PASSWORD=123
-DATABASE_URL="postgresql://cosmo:123@localhost:5432/cosmo?schema=public"
 ```
 
 Then, you can run as follows:
@@ -93,3 +92,5 @@ I still don't know how long this project will take to finish but I want to add s
 - Using S3(AWS)
 - CI/CD
 - Logs and monitorin
+
+## Swagger route is http://localhost:3005/api-docs
