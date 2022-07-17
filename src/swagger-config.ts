@@ -5,4 +5,5 @@ export const SwaggerConfig = new DocumentBuilder()
   .setDescription('The Cosmo API description')
   .setVersion('1.0')
   .addTag('users')
+  .addTag('Media Library')
   .build();

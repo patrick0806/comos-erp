@@ -7,7 +7,9 @@ import {
 import { ImageEntity } from './image.entity';
 import { MediaLibraryService } from './media-library.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Media Library')
 @Controller('media-library')
 export class MediaLibraryController {
   constructor(private mediaLibraryService: MediaLibraryService) {}
