@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserDTO } from './user.dto';
-import { UserEntity } from './user.entity';
 import { UsersService } from './users.service';
 
 @ApiTags('users')
@@ -18,7 +17,6 @@ export class UsersController {
   @ApiResponse({
     status: 200,
     description: 'Find a user with sucess',
-    type: UserEntity,
   })
   @ApiResponse({
     status: 404,
@@ -32,7 +30,6 @@ export class UsersController {
   @ApiResponse({
     status: 201,
     description: 'User create with success',
-    type: UserEntity,
   })
   @ApiResponse({
     status: 409,

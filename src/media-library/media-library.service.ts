@@ -1,27 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { ImageEntity } from './image.entity';
+import { PrismaService } from '../shared/prisma/prisma.service';
+import { Image } from '@prisma/client';
 import AWS from 'aws-sdk';
-
-interface ImageType {
-  mimetype: string;
-  extension: string;
-}
-
-const imageTransformations = [
-  { id: 'thumbnail', width: 90, height: 90, strategy: 'auto', enhance: true },
-  { id: 'small', width: 180, height: 180, strategy: 'auto', enhance: true },
-  { id: 'medium', width: 360, height: 360, strategy: 'auto' },
-  { id: 'large', width: 720, height: 720, strategy: 'auto' },
-  { id: 'extra-large', width: 1080, height: 1080, strategy: 'auto' },
-  { id: 'original', strategy: 'none' },
-];
-
-const supportedImageTypes: ImageType[] = [
-  { mimetype: 'image/jpeg', extension: '.jpg' },
-  { mimetype: 'image/png', extension: '.png' },
-];
 
 @Injectable()
 export class MediaLibraryService {
@@ -31,14 +11,13 @@ export class MediaLibraryService {
     secretAccessKey: process.env.AWS_S3_SECRET_KEY,
   });
 
-  constructor(
-    @InjectRepository(ImageEntity)
-    private imageRepository: Repository<ImageEntity>,
-  ) {}
+  constructor(private prismaService: PrismaService) {}
 
-  async saveImage(image: Express.Multer.File): Promise<ImageEntity> {
+  async saveImage(image: Express.Multer.File): Promise<Image> {
     const imageUrl = await this.uploadImageToS3(image);
-    return this.imageRepository.save({ imageUrl });
+    return this.prismaService.image.create({
+      data: { url: imageUrl, archived: false },
+    });
   }
 
   private async uploadImageToS3(image: Express.Multer.File) {
