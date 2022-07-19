@@ -27,3 +27,11 @@ export class UserDTO {
   })
   image?: Image;
 }
+
+export class UserResponseDTO {
+  id: string;
+  name: string;
+  email: string;
+  password?: string;
+  image?: Image;
+}

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../shared/prisma/prisma.service';
-import { Image, Prisma } from '@prisma/client';
+import { Image } from '@prisma/client';
 import AWS from 'aws-sdk';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class MediaLibraryService {
 
   constructor(private prismaService: PrismaService) {}
 
-  async saveImage(image: Express.Multer.File): Promise<any> {
+  async saveImage(image: Express.Multer.File): Promise<Image> {
     const imageUrl = await this.uploadImageToS3(image);
     return this.prismaService.image.create({
       data: { url: imageUrl, archived: false },

@@ -1,21 +1,20 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import bcrypt from 'bcrypt';
-import { UserDTO } from './user.dto';
+import { UserDTO, UserResponseDTO } from './user.dto';
 import { PrismaService } from '../shared/prisma/prisma.service';
-import { User, Prisma } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
   constructor(private prismaService: PrismaService) {}
 
-  async findUser(email: string): Promise<any> {
+  async findUser(email: string): Promise<UserResponseDTO> {
     return this.prismaService.user.findFirst({
       where: { email },
       select: { id: true, email: true, name: true, image: true },
     });
   }
 
-  async createUser(user: UserDTO): Promise<any> {
+  async createUser(user: UserDTO): Promise<UserResponseDTO> {
     const alreadyExistsUser = await this.findUser(user.email);
 
     if (alreadyExistsUser) {
