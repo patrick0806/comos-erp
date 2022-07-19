@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgres://cosmo:123@localhost:5432/cosmo"
+  url      = env("DATABASE_URL")
 }
 
 model User {
