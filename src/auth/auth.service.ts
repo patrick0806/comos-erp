@@ -27,7 +27,7 @@ export class AuthService {
     const dbUser = await this.usersService.findUser(user.email);
     const payload = {
       username: dbUser.email,
-      sub: dbUser.id,
+      id: dbUser.id,
       name: dbUser.name,
       image: dbUser.image,
     };
