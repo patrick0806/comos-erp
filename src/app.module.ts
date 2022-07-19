@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { MediaLibraryModule } from './media-library/media-library.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,9 +17,11 @@ import { MediaLibraryModule } from './media-library/media-library.module';
       password: process.env.DATABASE_PASSWORD,
       synchronize: process.env.NODE_ENV === 'development' ? true : false,
       entities: [__dirname + '/**/*.entity{.js,.ts}'],
+      logging: true,
     }),
     UsersModule,
     MediaLibraryModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
