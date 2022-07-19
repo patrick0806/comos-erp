@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MediaLibraryService } from './media-library.service';
 import { MediaLibraryController } from './media-library.controller';
-import { ImageEntity } from './image.entity';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { PrismaService } from 'src/shared/prisma/prisma.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ImageEntity])],
-  providers: [MediaLibraryService],
+  imports: [],
   controllers: [MediaLibraryController],
+  providers: [MediaLibraryService, PrismaService],
 })
 export class MediaLibraryModule {}

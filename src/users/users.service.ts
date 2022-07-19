@@ -1,25 +1,21 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import bcrypt from 'bcrypt';
-import { Repository } from 'typeorm';
 import { UserDTO } from './user.dto';
-import { UserEntity } from './user.entity';
+import { PrismaService } from '../shared/prisma/prisma.service';
+import { User, Prisma } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectRepository(UserEntity)
-    private userRepository: Repository<UserEntity>,
-  ) {}
+  constructor(private prismaService: PrismaService) {}
 
-  async findUser(email: string): Promise<UserEntity> {
-    return this.userRepository.findOne({
+  async findUser(email: string): Promise<any> {
+    return this.prismaService.user.findFirst({
       where: { email },
-      select: ['id', 'name', 'email', 'image'],
+      select: { id: true, email: true, name: true, image: true },
     });
   }
 
-  async createUser(user: UserDTO): Promise<UserEntity> {
+  async createUser(user: UserDTO): Promise<any> {
     const alreadyExistsUser = await this.findUser(user.email);
 
     if (alreadyExistsUser) {
@@ -30,7 +26,7 @@ export class UsersService {
     }
 
     user.password = await this.createPasswordHash(user.password);
-    const newUser = await this.userRepository.save(user);
+    const newUser = await this.prismaService.user.create({ data: user });
     delete newUser.password;
     return newUser;
   }

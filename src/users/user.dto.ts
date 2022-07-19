@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ImageEntity } from 'src/media-library/image.entity';
+import { Image } from '@prisma/client';
 
 export class UserDTO {
   @ApiProperty({
@@ -25,5 +25,5 @@ export class UserDTO {
     example: 'https://picsum.photos/200/300',
     required: false,
   })
-  image?: ImageEntity;
+  image?: Image;
 }
