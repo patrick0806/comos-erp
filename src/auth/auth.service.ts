@@ -32,7 +32,7 @@ export class AuthService {
       image: dbUser.image,
     };
     return {
-      access_token: this.jwtService.sign(payload, { expiresIn: '4d' }),
+      access_token: this.jwtService.sign(payload, { expiresIn: '1d' }),
     };
   }
 }
